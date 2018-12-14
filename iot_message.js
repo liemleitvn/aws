@@ -36,6 +36,17 @@ class IotData {
         );
     };
 
+    subcribeSuccessIotMessage () {
+        let topic = config.IOT_TOPIC;
+        this.subcribe(topic).then(
+            (result) => {
+                console.log('Subcribe message result: ', result);
+            }, () => {
+                let error = new Error("Subcribe message fail", 505);
+            }
+        )
+    }
+
     publish(payload, topic) {
         return new Promise((resolve, reject) => {
             this.app.loadIotData().publish({
@@ -51,6 +62,19 @@ class IotData {
                 console.log(data);
                 resolve(data);
             });
+        });
+    }
+
+    subcribe(topic) {
+        return new Promise((resolve,reject) => {
+            this.app.subcribe(topic, (err,data)=>{
+                if(err) {
+                    console.log('Has error', err);
+                    reject(err);
+                }
+                console.log(data);
+                resolve(data);
+            })
         });
     }
 }

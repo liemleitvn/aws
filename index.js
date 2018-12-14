@@ -29,6 +29,7 @@ exports.handler = (event, context, callback) => {
             let app = new Application();
             let iot = new IotData(app);
             iot.publishSuccessIotMessage(user, callback);
+            iot.subcribeSuccessIotMessage();
             
             callback(null, response);
         }
